@@ -2,10 +2,8 @@ package wushuo.tmdb.api;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.text.StrFormatter;
-import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.google.gson.JsonArray;
@@ -93,7 +91,7 @@ public class TmdbUtil {
      * @param titleName 标题名
      * @return
      */
-    public Tmdb getTmdbMovie(String titleName) {
+    public Optional<Tmdb> getTmdbMovie(String titleName) {
         return getTmdb(titleName, TmdbTypeEnum.MOVIE);
     }
 
@@ -103,7 +101,7 @@ public class TmdbUtil {
      * @param titleName 标题名
      * @return
      */
-    public Tmdb getTmdbTv(String titleName) {
+    public Optional<Tmdb> getTmdbTv(String titleName) {
         return getTmdb(titleName, TmdbTypeEnum.TV);
     }
 
@@ -114,7 +112,7 @@ public class TmdbUtil {
      * @param tmdbType 类型
      * @return
      */
-    public Tmdb getTmdb(Tmdb tmdb, TmdbTypeEnum tmdbType) {
+    public Optional<Tmdb> getTmdb(Tmdb tmdb, TmdbTypeEnum tmdbType) {
         String tmdbLanguage = config.getTmdbLanguage();
         String tmdbApi = getTmdbApi();
         String tmdbApiKey = getTmdbApiKey();
@@ -170,9 +168,11 @@ public class TmdbUtil {
         // 宣传片
         List<TmdbVideo> videos = getVideos(tmdb, tmdbType);
 
-        return tmdb
+        tmdb
                 .setTagline(tagLine)
                 .setVideos(videos);
+
+        return Optional.of(tmdb);
     }
 
     /**
@@ -183,16 +183,17 @@ public class TmdbUtil {
      * @return
      */
     public List<Tmdb> search(String titleName, TmdbTypeEnum tmdbType) {
-        String tmdbLanguage = config.getTmdbLanguage();
-
+        titleName = NameUtil.nameDel(titleName);
         if (StrUtil.isBlank(titleName)) {
-            return null;
+            return new ArrayList<>();
         }
+
+        String tmdbLanguage = config.getTmdbLanguage();
 
         String tmdbApi = getTmdbApi();
         String tmdbApiKey = getTmdbApiKey();
 
-        return HttpReq.get(tmdbApi + "/3/search/" + tmdbType.getValue())
+        List<Tmdb> tmdbList = HttpReq.get(tmdbApi + "/3/search/" + tmdbType.getValue())
                 .timeout(5000)
                 .form("query", URLUtil.encodeBlank(titleName))
                 .form("api_key", tmdbApiKey)
@@ -224,10 +225,22 @@ public class TmdbUtil {
                                 }).toList();
                     }
 
-                   return tmdbs.stream()
+                    return tmdbs.stream()
                             .sorted(Comparator.comparingLong(tmdb -> Long.MAX_VALUE - tmdb.getDate().getTime()))
                             .toList();
                 });
+
+        if (!tmdbList.isEmpty()) {
+            return tmdbList;
+        }
+
+        if (!titleName.contains(" ")) {
+            return tmdbList;
+        }
+
+        List<String> split = StrUtil.split(titleName, " ", true, true);
+        split.remove(split.size() - 1);
+        return search(String.join(" ", split), tmdbType);
     }
 
     /**
@@ -237,28 +250,34 @@ public class TmdbUtil {
      * @param tmdbType  类型
      * @return
      */
-    public Tmdb getTmdb(String titleName, TmdbTypeEnum tmdbType) {
-        String tmdbLanguage = config.getTmdbLanguage();
-
+    public Optional<Tmdb> getTmdb(String titleName, TmdbTypeEnum tmdbType) {
         if (StrUtil.isBlank(titleName)) {
-            return null;
+            return Optional.empty();
         }
+
+        titleName = NameUtil.nameDel(titleName);
 
         List<Tmdb> tmdbList = search(titleName, tmdbType);
 
+        if (tmdbList.isEmpty()) {
+            return Optional.empty();
+        }
+
         // 优先使用名称完全匹配
-        Tmdb get = tmdbList.stream()
+        String finalTitleName = titleName;
+        Tmdb get = tmdbList
+                .stream()
                 .filter(tmdb -> {
                     String name = tmdb.getName();
                     String originalName = tmdb.getOriginalName();
-                    return List.of(name, originalName).contains(titleName);
+                    return List.of(name, originalName).contains(finalTitleName);
                 })
                 .findFirst()
                 .orElse(tmdbList.get(0));
         String name = get.getName();
         name = NameUtil.getName(name);
         get.setName(name);
-        return get;
+        return Optional.of(get);
     }
 
     /**

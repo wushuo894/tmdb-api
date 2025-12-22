@@ -15,7 +15,7 @@ public class TestTmdb {
     public void test() {
         TmdbConfig config = new TmdbConfig("450e4f651e1c93e31383e20f8e731e5f");
         TmdbUtil tmdbUtil = new TmdbUtil(config);
-        List<Tmdb> tmdbList = tmdbUtil.search("从零开始的", TmdbTypeEnum.TV);
+        List<Tmdb> tmdbList = tmdbUtil.search("叹气的亡灵想隐退 第2部分", TmdbTypeEnum.TV);
         for (Tmdb tmdb : tmdbList) {
             log.info("{}", GsonStatic.toJson(tmdb));
         }
