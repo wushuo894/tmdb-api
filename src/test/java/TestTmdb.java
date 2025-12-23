@@ -68,7 +68,12 @@ public class TestTmdb {
                 continue;
             }
             String tmdbId = tmdbidEl.getTextContent();
-            Optional<Tmdb> tmdbOptional = tmdbUtil.getTmdb(new Tmdb().setId(tmdbId), TmdbTypeEnum.TV);
+            Optional<Tmdb> tmdbOptional = Optional.empty();
+            try {
+                tmdbOptional = tmdbUtil.getTmdb(new Tmdb().setId(tmdbId), TmdbTypeEnum.TV);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
             if (tmdbOptional.isEmpty()) {
                 log.warn("{} 未找到对应的tmdb", title);
                 continue;
