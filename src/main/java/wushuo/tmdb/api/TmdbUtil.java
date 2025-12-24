@@ -66,6 +66,7 @@ public class TmdbUtil {
         String id = tmdb.getId();
         String url = StrFormatter.format("{}/3/{}/{}/alternative_titles", tmdbApi, tmdbType.getValue(), id);
         List<TmdbTitle> tmdbTitles = HttpReq.get(url)
+                .proxy(config)
                 .timeout(5000)
                 .form("api_key", tmdbApiKey)
                 .form("include_adult", "true")
@@ -122,6 +123,7 @@ public class TmdbUtil {
         String url = StrFormatter.format("{}/3/{}/{}", tmdbApi, tmdbType.getValue(), id);
 
         Tmdb newTmdb = HttpReq.get(url)
+                .proxy(config)
                 .timeout(5000)
                 .form("api_key", tmdbApiKey)
                 .form("include_adult", "true")
@@ -194,6 +196,7 @@ public class TmdbUtil {
         String tmdbApiKey = getTmdbApiKey();
 
         List<Tmdb> tmdbList = HttpReq.get(tmdbApi + "/3/search/" + tmdbType.getValue())
+                .proxy(config)
                 .timeout(5000)
                 .form("query", URLUtil.encodeBlank(titleName))
                 .form("api_key", tmdbApiKey)
@@ -302,6 +305,7 @@ public class TmdbUtil {
             String url = StrFormatter.format("{}/3/tv/{}/season/{}", tmdbApi, id, season);
 
             return HttpReq.get(url)
+                    .proxy(config)
                     .timeout(5000)
                     .form("api_key", tmdbApiKey)
                     .form("include_adult", "true")
@@ -320,6 +324,7 @@ public class TmdbUtil {
         String url = StrFormatter.format("{}/3/tv/episode_group/{}", tmdbApi, tmdbGroupId);
 
         Optional<JsonObject> jsonObject = HttpReq.get(url)
+                .proxy(config)
                 .timeout(5000)
                 .form("api_key", tmdbApiKey)
                 .form("include_adult", "true")
@@ -430,6 +435,7 @@ public class TmdbUtil {
 
         String url = StrFormatter.format("{}/3/tv/{}/episode_groups", tmdbApi, id);
         return HttpReq.get(url)
+                .proxy(config)
                 .timeout(5000)
                 .form("api_key", tmdbApiKey)
                 .form("include_adult", "true")
@@ -465,6 +471,7 @@ public class TmdbUtil {
 
         String url = StrFormatter.format("{}/3/{}/{}/credits", tmdbApi, tmdbType.getValue(), id);
         return HttpReq.get(url)
+                .proxy(config)
                 .timeout(5000)
                 .form("api_key", tmdbApiKey)
                 .form("include_adult", "true")
@@ -496,6 +503,7 @@ public class TmdbUtil {
 
         String url = StrFormatter.format("{}/3/{}/{}/images", tmdbApi, tmdbType.getValue(), id);
         TmdbImages tmdbImages = HttpReq.get(url)
+                .proxy(config)
                 .timeout(5000)
                 .form("api_key", tmdbApiKey)
                 .form("include_adult", "true")
@@ -571,6 +579,7 @@ public class TmdbUtil {
 
         String url = StrFormatter.format("{}/3/{}/{}/videos", tmdbApi, tmdbType.getValue(), id);
         return HttpReq.get(url)
+                .proxy(config)
                 .timeout(5000)
                 .form("api_key", tmdbApiKey)
                 .form("include_adult", "true")
