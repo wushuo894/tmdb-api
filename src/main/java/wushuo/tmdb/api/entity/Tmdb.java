@@ -7,7 +7,9 @@ import wushuo.tmdb.api.enums.TmdbTypeEnum;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * tmdb
@@ -138,4 +140,9 @@ public class Tmdb implements Serializable {
     private TmdbTranslations translations;
 
     private TmdbTypeEnum tmdbType;
+
+    /**
+     * 用于存放其他信息
+     */
+    private Map<String, String> otherMap = new HashMap<>();
 }
