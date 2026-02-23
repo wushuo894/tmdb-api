@@ -13,24 +13,24 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 public class TmdbImages implements Serializable {
-     @Schema(name = "id")
+    @Schema(description = "id")
     private String id;
 
     /**
      * logo
      */
-     @Schema(name = "Logo")
+    @Schema(description = "Logo")
     private List<TmdbImage> logos;
 
     /**
      * 封面
      */
-     @Schema(name = "封面")
+    @Schema(description = "封面")
     private List<TmdbImage> posters;
 
     /**
      * 背景
      */
-     @Schema(name = "背景")
+    @Schema(description = "背景")
     private List<TmdbImage> backdrops;
 }

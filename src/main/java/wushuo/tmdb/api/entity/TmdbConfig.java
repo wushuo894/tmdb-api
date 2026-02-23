@@ -31,54 +31,54 @@ public class TmdbConfig implements Serializable {
     /**
      * tmdbApi
      */
-    @Schema(name = "tmdbApi")
+    @Schema(description = "tmdbApi")
     private String tmdbApi;
 
     /**
      * tmdbApiKey
      */
-    @Schema(name = "tmdbApiKey")
+    @Schema(description = "tmdbApiKey")
     private String tmdbApiKey;
 
     /**
      * tmdb 语言
      */
-    @Schema(name = "tmdb 语言")
+    @Schema(description = "tmdb 语言")
     private String tmdbLanguage;
 
     /**
      * 过滤出动漫
      */
-    @Schema(name = "过滤出动漫")
+    @Schema(description = "过滤出动漫")
     private Boolean tmdbAnime;
 
     /**
      * 代理是否开启
      */
-    @Schema(name = "代理是否开启")
+    @Schema(description = "代理是否开启")
     private Boolean proxy;
 
     /**
      * 代理host
      */
-    @Schema(name = "代理host")
+    @Schema(description = "代理host")
     private String proxyHost;
 
     /**
      * 代理端口
      */
-    @Schema(name = "代理端口")
+    @Schema(description = "代理端口")
     private Integer proxyPort;
 
     /**
      * 代理用户名
      */
-    @Schema(name = "代理用户名")
+    @Schema(description = "代理用户名")
     private String proxyUsername;
 
     /**
      * 代理密码
      */
-    @Schema(name = "代理密码")
+    @Schema(description = "代理密码")
     private String proxyPassword;
 }

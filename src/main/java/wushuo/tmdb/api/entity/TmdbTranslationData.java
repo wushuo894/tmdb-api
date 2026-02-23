@@ -12,15 +12,15 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 public class TmdbTranslationData implements Serializable {
-     @Schema(name = "名称")
+    @Schema(description = "名称")
     private String name;
 
-     @Schema(name = "概述")
+    @Schema(description = "概述")
     private String overview;
 
-     @Schema(name = "主页")
+    @Schema(description = "主页")
     private String homepage;
 
-     @Schema(name = "宣传语")
+    @Schema(description = "宣传语")
     private String tagline;
 }

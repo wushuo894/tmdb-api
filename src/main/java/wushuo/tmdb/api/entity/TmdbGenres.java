@@ -12,8 +12,8 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 public class TmdbGenres implements Serializable {
-     @Schema(name = "id")
+    @Schema(description = "id")
     private Integer id;
-     @Schema(name = "名称")
+    @Schema(description = "名称")
     private String name;
 }

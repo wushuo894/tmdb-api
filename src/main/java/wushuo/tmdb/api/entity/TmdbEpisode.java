@@ -14,46 +14,46 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class TmdbEpisode implements Serializable {
-     @Schema(name = "id")
+    @Schema(description = "id")
     private Integer id;
 
-     @Schema(name = "播出日期")
+    @Schema(description = "播出日期")
     @SerializedName(value = "airDate", alternate = "air_date")
     private Date airDate;
 
-     @Schema(name = "集数")
+    @Schema(description = "集数")
     @SerializedName(value = "episodeNumber", alternate = "episode_number")
     private Integer episodeNumber;
 
-     @Schema(name = "集类型")
+    @Schema(description = "集类型")
     @SerializedName(value = "episodeType", alternate = "episode_type")
     private String episodeType;
 
-     @Schema(name = "名称")
+    @Schema(description = "名称")
     private String name;
 
-     @Schema(name = "概述")
+    @Schema(description = "概述")
     private String overview;
 
-     @Schema(name = "时长")
+    @Schema(description = "时长")
     private String runtime;
 
-     @Schema(name = "季数")
+    @Schema(description = "季数")
     @SerializedName(value = "seasonNumber", alternate = "season_number")
     private Integer seasonNumber;
 
-     @Schema(name = "剧ID")
+    @Schema(description = "剧ID")
     @SerializedName(value = "showId", alternate = "show_id")
     private Integer showId;
 
-     @Schema(name = "剧照路径")
+    @Schema(description = "剧照路径")
     @SerializedName(value = "stillPath", alternate = "still_path")
     private String stillPath;
 
-     @Schema(name = "评分")
+    @Schema(description = "评分")
     @SerializedName(value = "voteAverage", alternate = "vote_average")
     private Double voteAverage;
 
-     @Schema(name = "排序")
+    @Schema(description = "排序")
     private Integer order;
 }
