@@ -228,10 +228,17 @@ public class TmdbUtil {
                                 }).toList();
                     }
 
-                    return tmdbs.stream()
-                            .sorted(Comparator.comparingLong(tmdb -> Long.MAX_VALUE - tmdb.getDate().getTime()))
-                            .toList();
+                    return tmdbs;
                 });
+
+        String finalTitleName = titleName;
+        // 排序依据: 优先名称完全匹配, 次之按年份排序年份。越大排序靠前
+        tmdbList = tmdbList.stream()
+                .sorted(Comparator
+                        .comparingInt((Tmdb tmdb) -> tmdb.getName().equalsIgnoreCase(finalTitleName) ? 0 : 1)
+                        .thenComparingLong(tmdb -> Long.MAX_VALUE - tmdb.getDate().getTime())
+                )
+                .toList();
 
         if (!tmdbList.isEmpty()) {
             return tmdbList;

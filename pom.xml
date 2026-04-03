@@ -6,7 +6,7 @@
 
     <groupId>wushuo.tmdb.api</groupId>
     <artifactId>tmdb-api</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
     <url>https://github.com/wushuo894/tmdb-api</url>
 
