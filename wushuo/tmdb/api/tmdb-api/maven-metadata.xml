@@ -3,10 +3,10 @@
   <groupId>wushuo.tmdb.api</groupId>
   <artifactId>tmdb-api</artifactId>
   <versioning>
-    <release>1.0.3</release>
+    <release>1.0.4</release>
     <versions>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
     </versions>
-    <lastUpdated>20260317001805</lastUpdated>
+    <lastUpdated>20260403155720</lastUpdated>
   </versioning>
 </metadata>
