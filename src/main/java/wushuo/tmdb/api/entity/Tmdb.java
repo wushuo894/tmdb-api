@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.jspecify.annotations.Nullable;
 import wushuo.tmdb.api.enums.TmdbTypeEnum;
 
 import java.io.Serializable;
@@ -126,12 +127,6 @@ public class Tmdb implements Serializable {
     private List<TmdbGenres> genres;
 
     /**
-     * 演职人员
-     */
-    @Schema(description = "演职人员")
-    private TmdbCredits credits;
-
-    /**
      * 工作室
      */
     @Schema(description = "工作室")
@@ -160,7 +155,15 @@ public class Tmdb implements Serializable {
      * 翻译
      */
     @Schema(description = "翻译")
+    @Nullable
     private TmdbTranslations translations;
+
+    /**
+     * 演职人员
+     */
+    @Schema(description = "演职人员")
+    @Nullable
+    private TmdbCredits credits;
 
     @Schema(description = "类型")
     private TmdbTypeEnum tmdbType;
