@@ -146,8 +146,9 @@ public class TmdbUtil {
         // 宣传语
         String tagLine = tmdb.getTagline();
 
-        if (StrUtil.isBlank(tagLine)) {
-            TmdbTranslations translations = tmdb.getTranslations();
+        TmdbTranslations translations = tmdb.getTranslations();
+
+        if (StrUtil.isBlank(tagLine) && Objects.nonNull(translations)) {
             Optional<String> first = translations
                     .getTranslations()
                     .stream()
