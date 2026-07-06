@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.text.StrFormatter;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.google.gson.JsonArray;
@@ -171,9 +172,14 @@ public class TmdbUtil {
         // 宣传片
         List<TmdbVideo> videos = getVideos(tmdb, tmdbType);
 
+
+        Date date = tmdb.getDate();
+        date = ObjectUtil.defaultIfNull(date, new Date());
+
         tmdb
                 .setTagline(tagLine)
-                .setVideos(videos);
+                .setVideos(videos)
+                .setDate(date);
 
         return Optional.of(tmdb);
     }
@@ -212,7 +218,11 @@ public class TmdbUtil {
                     for (JsonElement item : body.getAsJsonArray("results")) {
                         try {
                             Tmdb tmdb = GsonStatic.fromJson(item, Tmdb.class);
-                            tmdb.setTmdbType(tmdbType);
+                            Date date = tmdb.getDate();
+                            date = ObjectUtil.defaultIfNull(date, new Date());
+
+                            tmdb.setTmdbType(tmdbType)
+                                    .setDate(date);
                             tmdbs.add(tmdb);
                         } catch (Exception ignored) {
                         }

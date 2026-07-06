@@ -1,10 +1,12 @@
 package wushuo.tmdb.api.entity;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.jspecify.annotations.Nullable;
+import wushuo.tmdb.api.common.DateAdapter;
 import wushuo.tmdb.api.enums.TmdbTypeEnum;
 
 import java.io.Serializable;
@@ -104,6 +106,7 @@ public class Tmdb implements Serializable {
      * 首映日期
      */
     @Schema(description = "首映日期")
+    @JsonAdapter(DateAdapter.class)
     @SerializedName(value = "date", alternate = {"first_air_date", "release_date"})
     private Date date;
 
